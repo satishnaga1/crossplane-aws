@@ -6,7 +6,7 @@ spec:
   forProvider:
     region: ap-south-1
     instanceType: t2.micro
-    ami: ami-03f4878755434977f  # Amazon Linux 2 in ap-south-1 (Mumbai)
+    ami: ami-faf12191aa3337  # Amazon Linux 2 in ap-south-1 (Mumbai)
     subnetIdRef:
       name: sample-subnet
     associatePublicIpAddress: true
