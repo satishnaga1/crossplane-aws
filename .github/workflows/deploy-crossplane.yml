@@ -16,23 +16,23 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Print workspace path and files
-        shell: 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe'
+        
         shell: "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command {0}"
         run: |
           Write-Host "Repo checked out at: $env:GITHUB_WORKSPACE"
           Get-ChildItem -Recurse -Path "$env:GITHUB_WORKSPACE\crossplane"
 
       - name: Apply ProviderConfig
-        shell: 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe'
+        
         shell: "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command {0}"
         run: kubectl apply -f "$env:GITHUB_WORKSPACE\crossplane\providerconfig.yaml"
 
       - name: Apply VPC
-        shell: 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe'
+        
         shell: "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command {0}"
         run: kubectl apply -f "$env:GITHUB_WORKSPACE\crossplane\vpc.yaml"
 
       - name: Apply Subnet
-        shell: 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe'
+        
         shell: "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command {0}"
         run: kubectl apply -f "$env:GITHUB_WORKSPACE\crossplane\subnet.yaml"
