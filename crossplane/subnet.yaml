@@ -1,13 +1,14 @@
 apiVersion: ec2.aws.crossplane.io/v1beta1
-kind: VPC
+kind: Subnet
 metadata:
-  name: sample-vpc
+  name: sample-subnet
 spec:
   forProvider:
     region: ap-south-1
-    cidrBlock: 10.0.0.0/16
-    enableDnsSupport: true
-    enableDnsHostNames: true
-    instanceTenancy: default
+    availabilityZone: ap-south-1a
+    cidrBlock: 10.0.1.0/24
+    vpcIdRef:
+      name: sample-vpc
+    mapPublicIPOnLaunch: true
   providerConfigRef:
     name: default
