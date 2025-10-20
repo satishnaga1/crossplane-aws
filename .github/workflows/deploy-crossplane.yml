@@ -4,8 +4,6 @@ on:
   push:
     paths:
       - 'crossplane/providerconfig.yaml'
-      - 'crossplane/vpc.yaml'
-      - 'crossplane/instance.yaml'
       - '.github/workflows/deploy-crossplane.yaml'
 
   workflow_dispatch: 
@@ -32,31 +30,12 @@ jobs:
       #    echo "${{ secrets.KUBECONFIG }}" | base64 --decode > ~/.kube/config
       #    chmod 600 ~/.kube/config
 
-      - name: Apply ProviderConfig
-        shell: pwsh
+      - name: Show working directory and Crossplane files
         run: |
-          kubectl apply -f crossplane/providerconfig.yaml
-
+          Get-Location
+          Get-ChildItem -Recurse -Path crossplane
+        shell: powershell
       - name: Apply VPC
-        shell: pwsh
-        run: |
-          kubectl apply -f crossplane/vpc.yaml
-
-      - name: Apply Instance
-        shell: pwsh
-        run: |
-          kubectl apply -f crossplane/instance.yaml
-
-      - name: Wait for VPC to become Ready
-        run: |
-          for i in {1..30}; do
-            READY=$(kubectl get vpc.ec2.aws.crossplane.io sample-vpc1 -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}' || echo "False")
-            if [[ "$READY" == "True" ]]; then
-              echo "VPC is Ready"
-              exit 0
-            fi
-            echo "Waiting for VPC to be Ready... Attempt $i/30"
-            sleep 10
-          done
-          echo "Timed out waiting for VPC to be Ready"
-          exit 1
+        run: kubectl apply -f crossplane\vpc.yaml
+        shell: powershell
+     
