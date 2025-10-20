@@ -1,0 +1,15 @@
+apiVersion: ec2.aws.crossplane.io/v1beta1
+kind: Instance
+metadata:
+  name: sample-ec2
+spec:
+  forProvider:
+    region: ap-south-1
+    instanceType: t2.micro
+    ami: ami-0c94855ba95c71c99  # Amazon Linux 2 in us-east-1
+    subnetIdRef:
+      name: sample-subnet
+    associatePublicIpAddress: true
+    keyName: Crossplane         # Optional: set your AWS EC2 key pair name here
+  providerConfigRef:
+    name: default
