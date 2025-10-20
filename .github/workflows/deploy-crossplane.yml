@@ -1,41 +1,29 @@
-name: Deploy Crossplane AWS Resources
+name: Deploy Crossplane Resources
 
 on:
   push:
     paths:
-      - 'crossplane/providerconfig.yaml'
-      - '.github/workflows/deploy-crossplane.yaml'
-
-  workflow_dispatch: 
+      - 'crossplane/**'
+  workflow_dispatch:     
 
 jobs:
   deploy:
-    runs-on: self-hosted  # use your self-hosted runner label
+    runs-on: self-hosted  # Windows 11 self-hosted runner
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      # If kubectl already installed on runner, skip this step
-      - name: Setup kubectl (optional)
-        uses: azure/setup-kubectl@v3
-        with:
-          version: 'latest'
-
-      # If your runner already has kubeconfig configured, skip this step
-      # Otherwise, uncomment below to setup kubeconfig from secret
-      #- name: Setup KUBECONFIG
-      #  run: |
-      #    mkdir -p ~/.kube
-      #    echo "${{ secrets.KUBECONFIG }}" | base64 --decode > ~/.kube/config
-      #    chmod 600 ~/.kube/config
-
-      - name: Show working directory and Crossplane files
+      - name: Show working directory and files
         run: |
-          Get-Location
-          Get-ChildItem -Recurse -Path crossplane
-        shell: powershell
+          cd
+          dir crossplane
+        shell: cmd
+
+      - name: Apply ProviderConfig
+        run: kubectl apply -f crossplane\providerconfig.yaml
+        shell: cmd
+
       - name: Apply VPC
         run: kubectl apply -f crossplane\vpc.yaml
-        shell: powershell
-     
+        shell: cmd
