@@ -4,10 +4,8 @@ metadata:
   name: sample-vpc2
 spec:
   forProvider:
-    region: ap-south-1
-    cidrBlock: 10.0.0.0/18
-    enableDnsSupport: true
-    enableDnsHostNames: true
-    instanceTenancy: default
+    region: us-east-1            # Replace with your AWS region
+    cidrBlock: 10.0.0.0/16
   providerConfigRef:
-    name: default
+    name: aws-provider           # Must match your ProviderConfig name
+
