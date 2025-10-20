@@ -15,25 +15,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Debug - Print GITHUB_WORKSPACE and crossplane files
+      - name: Debug - Print current directory and crossplane files
         shell: "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command {0}"
         run: |
-          Write-Host "GITHUB_WORKSPACE: $env:GITHUB_WORKSPACE"
-          if (Test-Path "$env:GITHUB_WORKSPACE\crossplane") {
+          Write-Host "Current directory:"
+          pwd
+          if (Test-Path ".\crossplane") {
             Write-Host "Contents of crossplane directory:"
-            Get-ChildItem "$env:GITHUB_WORKSPACE\crossplane"
+            Get-ChildItem .\crossplane
           } else {
-            Write-Error "❌ Directory not found: $env:GITHUB_WORKSPACE\crossplane"
+            Write-Error "❌ Directory not found: .\crossplane"
             exit 1
           }
 
       - name: Apply ProviderConfig
         shell: "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command {0}"
-        run: kubectl apply -f "$env:GITHUB_WORKSPACE\crossplane\providerconfig.yaml"
+        run: kubectl apply -f .\crossplane\providerconfig.yaml
 
       - name: Apply VPC
         shell: "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command {0}"
-        run: kubectl apply -f "$env:GITHUB_WORKSPACE\crossplane\vpc.yaml"
+        run: kubectl apply -f .\crossplane\vpc.yaml
 
       - name: Wait for VPC to be Ready
         shell: "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command {0}"
@@ -41,4 +42,4 @@ jobs:
 
       - name: Apply Subnet
         shell: "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command {0}"
-        run: kubectl apply -f "$env:GITHUB_WORKSPACE\crossplane\subnet.yaml"
+        run: kubectl apply -f .\crossplane\subnet.yaml
