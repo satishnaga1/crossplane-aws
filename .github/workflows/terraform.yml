@@ -1,0 +1,32 @@
+name: Deploy Crossplane Resources
+
+on:
+  push:
+    paths:
+      - 'crossplane/**'
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: self-hosted  # Use your Windows 11 self-hosted runner
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Print working directory and files
+        run: |
+          Get-Location
+          Get-ChildItem -Recurse -Path crossplane
+        shell: powershell
+
+      - name: Apply ProviderConfig
+        run: kubectl apply -f crossplane\providerconfig.yaml
+        shell: powershell
+
+      - name: Apply VPC
+        run: kubectl apply -f crossplane\vpc.yaml
+        shell: powershell
+
+      - name: Apply Subnet
+        run: kubectl apply -f crossplane\subnet.yaml
+        shell: powershell
