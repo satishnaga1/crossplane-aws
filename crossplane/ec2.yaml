@@ -6,10 +6,10 @@ spec:
   forProvider:
     region: ap-south-1
     instanceType: t2.micro
-    ami: ami-0c94855ba95c71c99  # Amazon Linux 2 in us-east-1
+    ami: ami-03f4878755434977f  # Amazon Linux 2 in ap-south-1 (Mumbai)
     subnetIdRef:
       name: sample-subnet
     associatePublicIpAddress: true
-    keyName: Crossplane         # Optional: set your AWS EC2 key pair name here
+    keyName: Crossplane  # Make sure this key pair exists in ap-south-1
   providerConfigRef:
     name: default
