@@ -36,9 +36,13 @@ jobs:
         shell: "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command {0}"
         run: kubectl apply -f .\crossplane\vpc.yaml
 
+      - name: Check VPC status
+        shell: "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command {0}"
+        run: kubectl get vpc.ec2.aws.crossplane.io
+
       - name: Wait for VPC to be Ready
         shell: "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command {0}"
-        run: kubectl wait --for=condition=Ready vpc.ec2.aws.crossplane.io/sample-vpc2 --timeout=180s
+        run: kubectl wait --for=condition=Ready vpc.ec2.aws.crossplane.io/sample-vpc1 --timeout=180s
 
       - name: Apply Subnet
         shell: "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command {0}"
