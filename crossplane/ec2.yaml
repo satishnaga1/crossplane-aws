@@ -1,15 +1,17 @@
-apiVersion: ec2.aws.crossplane.io/v1beta1
+apiVersion: ec2.aws.crossplane.io/v1alpha1
 kind: Instance
 metadata:
-  name: sample-ec2
+  name: sample-instance
 spec:
   forProvider:
     region: ap-south-1
-    instanceType: t2.micro
-    ami: ami-faf12191aa3337  # Amazon Linux 2 in ap-south-1 (Mumbai)
+    imageId: ami-079db87dc4c10ac91
+    instanceType: t2.nano
+    blockDeviceMappings:
+     - deviceName: /dev/sdx
+       ebs:
+         volumeSize: 4
     subnetIdRef:
       name: sample-subnet
-    associatePublicIpAddress: true
-    keyName: Crossplane  # Make sure this key pair exists in ap-south-1
   providerConfigRef:
     name: default
