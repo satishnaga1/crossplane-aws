@@ -4,7 +4,7 @@ metadata:
   name: sample-subnet
 spec:
   forProvider:
-    region: ap-south-1
+    region: us-east-1
     availabilityZone: ap-south-1a
     cidrBlock: 10.0.1.0/24
     vpcIdRef:
