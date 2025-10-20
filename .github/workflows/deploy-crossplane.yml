@@ -6,28 +6,29 @@ on:
       - 'crossplane/*.yaml'
       - '.github/workflows/deploy-crossplane.yaml'
   workflow_dispatch:
+
 jobs:
   deploy:
-    runs-on: self-hosted # Adjust label if you used something else
+    runs-on: self-hosted  # Adjust label if needed
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Print workspace path and files
-        
+        shell: pwsh  # Explicitly use PowerShell Core (pwsh)
         run: |
           Write-Host "Repo checked out at: $env:GITHUB_WORKSPACE"
           Get-ChildItem -Recurse -Path "$env:GITHUB_WORKSPACE\crossplane"
 
       - name: Apply ProviderConfig
-        
         run: kubectl apply -f "$env:GITHUB_WORKSPACE\crossplane\providerconfig.yaml"
+        shell: pwsh
 
       - name: Apply VPC
-        
         run: kubectl apply -f "$env:GITHUB_WORKSPACE\crossplane\vpc.yaml"
+        shell: pwsh
 
       - name: Apply Subnet
-        
         run: kubectl apply -f "$env:GITHUB_WORKSPACE\crossplane\subnet.yaml"
+        shell: pwsh
