@@ -5,7 +5,7 @@ metadata:
 spec:
   forProvider:
     region: ap-south-1
-    imageId: ami-079db87dc4c10ac91
+    imageId: ami-faf12191aa3337
     instanceType: t2.nano
     blockDeviceMappings:
      - deviceName: /dev/sdx
