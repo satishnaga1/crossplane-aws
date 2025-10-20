@@ -33,14 +33,17 @@ jobs:
       #    chmod 600 ~/.kube/config
 
       - name: Apply ProviderConfig
+        shell: pwsh
         run: |
           kubectl apply -f crossplane/providerconfig.yaml
 
       - name: Apply VPC
+        shell: pwsh
         run: |
           kubectl apply -f crossplane/vpc.yaml
 
       - name: Apply Instance
+        shell: pwsh
         run: |
           kubectl apply -f crossplane/instance.yaml
 
