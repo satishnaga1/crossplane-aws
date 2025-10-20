@@ -5,7 +5,7 @@ metadata:
 spec:
   forProvider:
     region: us-east-1
-    availabilityZone: ap-south-1a
+    availabilityZone: us-east-1a
     cidrBlock: 10.0.1.0/24
     vpcIdRef:
       name: sample-vpc1
